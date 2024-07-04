@@ -1,20 +1,27 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { CircleGeometry, MeshBasicMaterial } from 'three';
 import { Interactive } from '@react-three/xr';
 
-function BoxTest() {
+function BoxTest({ onSelectionChange }) {
   const meshRef = useRef(); // Reference to the mesh
   const [selected, setSelected] = useState(false); // State to track selection
 
-  // Function to handle pointer down (start selection)
-  const handlePointerDown = () => {
+  // Function to handle selection start
+  const handleSelectStart = () => {
     setSelected(true); // Start selection
+    console.log("Selected started");
+    if (onSelectionChange) {
+      onSelectionChange(true); // Notify parent of selection start
+    }
   };
 
-  // Function to handle pointer up (end selection)
-  const handlePointerUp = () => {
+  // Function to handle selection end
+  const handleSelectEnd = () => {
     setSelected(false); // End selection
+    console.log("Selected ended");
+    if (onSelectionChange) {
+      onSelectionChange(false); // Notify parent of selection end
+    }
   };
 
   // Update material color based on selection state
@@ -25,16 +32,14 @@ function BoxTest() {
   });
 
   return (
-    <Interactive>
-      <mesh
-      ref={meshRef}
-      onPointerDown={handlePointerDown}
-      onPointerUp={handlePointerUp}
-      onSelectStart={() => {}} // Placeholder for compatibility, no direct effect
+    <Interactive
+      onSelectStart={handleSelectStart}
+      onSelectEnd={handleSelectEnd}
     >
-      <circleGeometry args={[0.5, 64]} />
-      <meshBasicMaterial side="DoubleSide" color="blue" />
-    </mesh>
+      <mesh ref={meshRef}>
+        <circleGeometry args={[0.5, 64]} />
+        <meshBasicMaterial side="DoubleSide" color="blue" />
+      </mesh>
     </Interactive>
   );
 }

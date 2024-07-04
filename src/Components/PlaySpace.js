@@ -34,15 +34,15 @@ function PlaySpace() {
 
   return (
     <>
-      <mesh position={[-3, 1, -2]} rotation={[0, Math.PI / 4, 0]}>
+      <mesh position={[-3, 1, -5]} rotation={[0, Math.PI / 4, 0]}>
         <BoxTest onSelectionChange={handleSelectionChange} />
       </mesh>
 
-      <mesh position={[0, 1, -3]}>
+      <mesh position={[0, 1, -6]}>
         <BoxTest onSelectionChange={handleSelectionChange} />
       </mesh>
 
-      <mesh position={[3, 1, -2]} rotation={[0, Math.PI / -4, 0]}>
+      <mesh position={[3, 1, -5]} rotation={[0, Math.PI / -4, 0]}>
         <BoxTest onSelectionChange={handleSelectionChange} />
       </mesh>
 

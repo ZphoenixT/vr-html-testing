@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { VRButton, XR, Controllers } from '@react-three/xr';
 import { Canvas } from '@react-three/fiber';
 import { Plane, OrbitControls, Text } from '@react-three/drei';
-import BoxWithDiv from './Components/BoxWithDiv';
+// import BoxWithDiv from './Components/BoxWithDiv';
+import BoxTest from './Components/BoxTest';
 
 function App() {
   const [counter, setCounter] = useState(20);
@@ -50,7 +51,18 @@ function App() {
       <VRButton />
       <Canvas style={{ background: '#262626' }}>
         <XR>
-        <BoxWithDiv/>
+          <mesh position={[-6, 2, -6]} rotation={[0, Math.PI / 4, 0]}>
+            <BoxTest/>
+          </mesh>
+
+          <mesh position={[0, 2, -7]}>
+            <BoxTest/>
+          </mesh>
+
+          <mesh position={[6, 2, -6]} rotation={[0, Math.PI / -4, 0]}>
+            <BoxTest/>
+          </mesh>
+        
           <OrbitControls />
           <Plane
             args={[5, 5]}

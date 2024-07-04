@@ -5,8 +5,6 @@ import './vrStyle.css'
 function BoxWithDiv() {
   return (
     <mesh position={[0, 1, -5]}>
-        <boxGeometry args={[1, 1, 1]} />
-        <meshStandardMaterial color="orange" />
     <Html transform position={[0, 1, 0]}>
       <div className='testBox'>
         <p>

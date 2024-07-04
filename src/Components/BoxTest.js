@@ -37,7 +37,7 @@ function BoxTest({ onSelectionChange }) {
       onSelectEnd={handleSelectEnd}
     >
       <mesh ref={meshRef}>
-        <circleGeometry args={[0.5, 64]} />
+        <circleGeometry args={[0.2, 64]} />
         <meshBasicMaterial side="DoubleSide" color="blue" />
       </mesh>
     </Interactive>

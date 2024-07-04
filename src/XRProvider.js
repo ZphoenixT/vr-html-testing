@@ -5,7 +5,7 @@ import { Canvas } from '@react-three/fiber';
 const XRProvider = ({ children }) => (
     <>
     <VRButton />
-    <Canvas>
+    <Canvas style={{ background: '#262626' }}>
         <XR>
             {children}
         </XR>

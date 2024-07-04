@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useFrame } from 'react';
 import { VRButton, XR, Controllers, useController, XRController, useXREvent, useXR } from '@react-three/xr';
 import { Canvas } from '@react-three/fiber';
 import { Plane, OrbitControls, Text } from '@react-three/drei';
@@ -47,6 +47,7 @@ function PlaySpace() {
     console.log(controllers);
   }, [controllers]);
 
+
   return (
     <>
       {/* <Canvas style={{ background: '#262626' }}>
@@ -74,8 +75,13 @@ function PlaySpace() {
           </Plane>
           <ambientLight intensity={0.1} />
             <spotLight
-              position={[0, 7, 0]}
-              angle={0.2}
+              position=
+              {[
+                controllers.length > 0 ? controllers[0].grip.position.x : " ",
+                controllers.length > 0 ? controllers[0].grip.position.y : " ",
+                controllers.length > 0 ? controllers[0].grip.position.z : " "
+              ]}
+              angle={0}
               intensity={6}
               penumbra={0.2}
               color="#ffffff"
@@ -87,6 +93,9 @@ function PlaySpace() {
           <Controllers
             rayMaterial={{ color: 'blue' }}
           />
+          <Text position={[0, 2, -10]} fontSize={0.5} color="blue">
+            location is:{controllers.length > 0 ? controllers[0].grip.position.z : " "}
+          </Text>
         {/* </XR>
       </Canvas> */}
     </>

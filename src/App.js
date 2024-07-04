@@ -50,6 +50,7 @@ function App() {
       <VRButton />
       <Canvas style={{ background: '#262626' }}>
         <XR>
+        <BoxWithDiv/>
           <OrbitControls />
           <Plane
             args={[5, 5]}
@@ -92,8 +93,6 @@ function App() {
               updateControllerPositions(controllers);
             }}
           />
-
-          <BoxWithDiv/>
         </XR>
       </Canvas>
     </>

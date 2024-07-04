@@ -51,15 +51,15 @@ function App() {
       <VRButton />
       <Canvas style={{ background: '#262626' }}>
         <XR>
-          <mesh position={[-7, 3, -7]} rotation={[0, Math.PI / 4, 0]}>
+          <mesh position={[-8, 3, -9]} rotation={[0, Math.PI / 4, 0]}>
             <BoxTest/>
           </mesh>
 
-          <mesh position={[0, 3, -8]}>
+          <mesh position={[0, 3, -10]}>
             <BoxTest/>
           </mesh>
 
-          <mesh position={[7, 3, -7]} rotation={[0, Math.PI / -4, 0]}>
+          <mesh position={[8, 3, -9]} rotation={[0, Math.PI / -4, 0]}>
             <BoxTest/>
           </mesh>
         

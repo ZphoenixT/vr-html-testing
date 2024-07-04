@@ -81,7 +81,7 @@ function PlaySpace() {
                 controllers.length > 0 ? controllers[0].grip.position.y : " ",
                 controllers.length > 0 ? controllers[0].grip.position.z : " "
               ]}
-              angle={0}
+              angle={0.1}
               intensity={6}
               penumbra={0.2}
               color="#ffffff"

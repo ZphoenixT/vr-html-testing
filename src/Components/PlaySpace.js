@@ -26,24 +26,24 @@ function PlaySpace() {
     return () => clearInterval(interval);
   }, [incrementing]);
 
-  // Handle selection state from BoxTest
-  const handleSelectionChange = (isSelected) => {
-    console.log(`Selection changed: ${isSelected}`);
-    setIncrementing(isSelected ? 1 : 2);
+  // Handle hover state from BoxTest
+  const handleHoverChange = (isHovered) => {
+    console.log(`Selection changed: ${isHovered}`);
+    setIncrementing(isHovered ? 1 : 2);
   };
 
   return (
     <>
       <mesh position={[-3, 1, -5]} rotation={[0, Math.PI / 4, 0]}>
-        <BoxTest onSelectionChange={handleSelectionChange} />
+        <BoxTest onHoverChange={handleHoverChange} />
       </mesh>
 
       <mesh position={[0, 1, -6]}>
-        <BoxTest onSelectionChange={handleSelectionChange} />
+        <BoxTest onHoverChange={handleHoverChange} />
       </mesh>
 
       <mesh position={[3, 1, -5]} rotation={[0, Math.PI / -4, 0]}>
-        <BoxTest onSelectionChange={handleSelectionChange} />
+        <BoxTest onHoverChange={handleHoverChange} />
       </mesh>
 
       <OrbitControls />

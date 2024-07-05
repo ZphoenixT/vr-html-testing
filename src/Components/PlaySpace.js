@@ -1,49 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { VRButton, XR, Controllers, useXR } from '@react-three/xr';
 import { Canvas } from '@react-three/fiber';
 import { Plane, OrbitControls, Text } from '@react-three/drei';
 import BoxTest from './BoxTest';
 
 function PlaySpace() {
-  const [counter, setCounter] = useState(20);
-  const [incrementing, setIncrementing] = useState(1);
   const { controllers } = useXR();
-
-  // Counter logic
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCounter((prevCounter) => {
-        if (incrementing === 1 && prevCounter < 20) {
-          return prevCounter + 1;
-        } else if (incrementing === 2 && prevCounter > 0) {
-          return prevCounter - 1;
-        } else {
-          return prevCounter;
-        }
-      });
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, [incrementing]);
-
-  // Handle hover state from BoxTest
-  const handleHoverChange = (isHovered) => {
-    console.log(`Selection changed: ${isHovered}`);
-    setIncrementing(isHovered ? 1 : 2);
-  };
 
   return (
     <>
       <mesh position={[-3, 1, -5]} rotation={[0, Math.PI / 4, 0]}>
-        <BoxTest onHoverChange={handleHoverChange} />
+        <BoxTest initialCounter={0} />
       </mesh>
 
       <mesh position={[0, 1, -6]}>
-        <BoxTest onHoverChange={handleHoverChange} />
+        <BoxTest initialCounter={0} />
       </mesh>
 
       <mesh position={[3, 1, -5]} rotation={[0, Math.PI / -4, 0]}>
-        <BoxTest onHoverChange={handleHoverChange} />
+        <BoxTest initialCounter={0} />
       </mesh>
 
       <OrbitControls />
@@ -68,12 +43,9 @@ function PlaySpace() {
         color="#ffffff"
         castShadow
       />
-      <Text position={[7, 2, -10]} fontSize={0.5} color="red">
-        {counter}
-      </Text>
       <Controllers rayMaterial={{ color: 'green' }} />
       <Text position={[0, 2, -10]} fontSize={0.5} color="blue">
-        location is:{controllers.length > 0 ? controllers[0].grip.position.z : " "}
+        location is: {controllers.length > 0 ? controllers[0].grip.position.z : " "}
       </Text>
     </>
   );

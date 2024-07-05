@@ -1,30 +1,34 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { Interactive } from '@react-three/xr';
+import { Text } from '@react-three/drei';
 
-function BoxTest({ onHoverChange }) {
-  const meshRef = useRef(); // Reference to the mesh
-  const [isHovered, setIsHovered] = useState(false); // State to track selection
+function BoxTest({ initialCounter }) {
+  const meshRef = useRef();
+  const [isHovered, setIsHovered] = useState(false);
+  const [counter, setCounter] = useState(initialCounter);
 
-  // Function to handle selection start
   const handleHoverStart = () => {
-    setIsHovered(true); // Start selection
+    setIsHovered(true);
     console.log("hovering ");
-    if (onHoverChange) {
-      onHoverChange(true); // Notify parent of selection start
-    }
   };
 
-  // Function to handle selection end
   const handleHoverEnd = () => {
-    setIsHovered(false); // End selection
-    console.log(" hover'nting");
-    if (onHoverChange) {
-      onHoverChange(false); // Notify parent of selection end
-    }
+    setIsHovered(false);
+    console.log("hover'nting");
   };
 
-  // Update material color based on selection state
+  // Counter logic
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCounter((prevCounter) => {
+        return isHovered ? prevCounter + 1 : prevCounter > 0 ? prevCounter - 1 : 0;
+      });
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [isHovered]);
+
   useFrame(() => {
     if (meshRef.current) {
       meshRef.current.material.color.set(isHovered ? 'red' : 'blue');
@@ -40,6 +44,10 @@ function BoxTest({ onHoverChange }) {
         <circleGeometry args={[0.2, 64]} />
         <meshBasicMaterial side="DoubleSide" color="blue" />
       </mesh>
+      {/* Display counter text above the circle */}
+      <Text position={[0, 0.3, 0]} fontSize={0.1} color="green">
+        {counter}
+      </Text>
     </Interactive>
   );
 }

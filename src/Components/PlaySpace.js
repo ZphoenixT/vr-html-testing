@@ -10,6 +10,8 @@ function PlaySpace() {
   const spotlight2Ref = useRef();
   const spotlight3Ref = useRef();
   const spotlight4Ref = useRef();
+  const spotlight5Ref = useRef();
+  const lightLvl = 10;
 
   // Function to set the target of each spotlight
   const setSpotlightTarget = (spotlightRef, position) => {
@@ -24,6 +26,7 @@ function PlaySpace() {
     setSpotlightTarget(spotlight2Ref, [0, 1, -5.8]);  // Position for spotlight 2
     setSpotlightTarget(spotlight3Ref, [2.8, 1, -4.8]);  // Position for spotlight 3
     setSpotlightTarget(spotlight4Ref, [0, 0, -1]);
+    setSpotlightTarget(spotlight5Ref, [0, 1, -5.8]);
   }, []);
 
   return (
@@ -41,34 +44,35 @@ function PlaySpace() {
       </mesh>
 
       <OrbitControls />
+
       <Plane
         args={[20, 5]}
         receiveShadow
         rotation={[-Math.PI / 2, 0, 0]}
         position={[0, 0, 0]}
       >
-        <meshStandardMaterial attach="material" color="#bbbbbb" />
+        <meshStandardMaterial attach="material" color="#797979" />
       </Plane>
 
       <Plane args={[11, 8]}
       position={[0, 3, 2]}
       rotation={[0, -Math.PI / 1, 0]}
       >
-      <meshStandardMaterial attach="material" color="#bbbbbb" />
+      <meshStandardMaterial attach="material" color="#707070" />
       </Plane>
 
       <Plane args={[11, 8]}
       position={[-4.5, 3, 1]}
       rotation={[0, 2.5, 0]}
       >
-      <meshStandardMaterial attach="material" color="#bbbbbb" />
+      <meshStandardMaterial attach="material" color="#666" />
       </Plane>
 
       <Plane args={[11, 8]}
       position={[4.5, 3, 1]}
       rotation={[0, -2.5, 0]}
       >
-      <meshStandardMaterial attach="material" color="#bbbbbb" />
+      <meshStandardMaterial attach="material" color="#666" />
       </Plane>
 
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.0001, 0]}>
@@ -90,11 +94,15 @@ function PlaySpace() {
       <torusGeometry args={[1.7, 0.1, 2, 100]}/>
       <meshStandardMaterial attach="material" color="#5c5c5c" />
       </mesh>
-      
+{/*
+=================================
+            LIGHTS
+=================================
+*/}
+      <ambientLight intensity={0.5} />
 
-      <ambientLight intensity={0.1} />
       <SpotLight
-      intensity={10}
+      intensity={lightLvl}
       angle={0.5}
       penumbra={0.9}
       position={[0, 5, 0]}
@@ -102,15 +110,16 @@ function PlaySpace() {
 
       <SpotLight
       ref={spotlight1Ref}
-      intensity={10}
+      intensity={lightLvl}
       angle={0.1}
       penumbra={0.9}
       position={[0, 5, -3]}
       distance={100}/>
 
+{/* problem child */}
       <SpotLight
-      ref={spotlight2Ref}
-      intensity={10}
+      ref={spotlight5Ref}
+      intensity={lightLvl}
       angle={0.1}
       penumbra={0.9}
       position={[2, 5, -3]}
@@ -118,7 +127,7 @@ function PlaySpace() {
 
       <SpotLight
       ref={spotlight2Ref}
-      intensity={10}
+      intensity={lightLvl}
       angle={0.1}
       penumbra={0.9}
       position={[-2, 5, -3]}
@@ -126,15 +135,17 @@ function PlaySpace() {
 
       <SpotLight
       ref={spotlight3Ref}
-      intensity={10}
+      intensity={lightLvl}
       angle={0.1}
       penumbra={0.9}
       position={[0, 5, -3]}
       distance={100}/>
 
+{/*====== STAGE LIGHTS ======*/}
+
       <SpotLight
       ref={spotlight4Ref}
-      intensity={10}
+      intensity={lightLvl}
       angle={0.1}
       penumbra={0.9}
       position={[-3.5, 5, -3]}
@@ -143,7 +154,7 @@ function PlaySpace() {
 
       <SpotLight
       ref={spotlight4Ref}
-      intensity={10}
+      intensity={lightLvl}
       angle={0.1}
       penumbra={0.9}
       position={[3.5, 5, -3]}
@@ -152,7 +163,7 @@ function PlaySpace() {
 
       <SpotLight
       ref={spotlight4Ref}
-      intensity={10}
+      intensity={lightLvl}
       angle={0.3}
       penumbra={0.9}
       position={[0, 5, -3.1]}

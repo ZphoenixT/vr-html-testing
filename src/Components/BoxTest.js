@@ -41,11 +41,11 @@ function BoxTest({ initialCounter }) {
       onBlur={handleHoverEnd}
     >
       <mesh ref={meshRef}>
-        <circleGeometry args={[0.2, 64]} />
+        <circleGeometry args={[0.3, 64]} />
         <meshBasicMaterial side="DoubleSide" color="blue" />
       </mesh>
       {/* Display counter text above the circle */}
-      <Text position={[0, 0.3, 0]} fontSize={0.1} color="green">
+      <Text position={[0, 0, 0.0001]} fontSize={0.3} color="green">
         {counter}
       </Text>
     </Interactive>

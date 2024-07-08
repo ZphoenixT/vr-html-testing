@@ -1,8 +1,8 @@
-import React, { useRef, useEffect } from 'react';
-import { VRButton, XR, Controllers, useXR } from '@react-three/xr';
-import { Canvas } from '@react-three/fiber';
-import { Plane, OrbitControls, Text, SpotLight } from '@react-three/drei';
+import React, { useRef, useEffect, useState } from 'react';
+import { useThree, XR, Controllers, useXR } from '@react-three/xr';
+import { Plane, OrbitControls, Text, SpotLight, Html } from '@react-three/drei';
 import BoxTest from './BoxTest';
+import * as THREE from 'three'
 
 function PlaySpace() {
   const { controllers } = useXR();
@@ -20,18 +20,51 @@ function PlaySpace() {
     }
   };
 
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     setProgress(prev => Math.min(prev + 0.01, 1));
+  //   }, 100);
+
+  //   return () => clearInterval(interval);
+  // }, []);
+
   // Use useEffect to set initial spotlight targets on mount
   useEffect(() => {
-    setSpotlightTarget(spotlight1Ref, [-2.8, 1, -4.8]); // Position for spotlight 1
+    setSpotlightTarget(spotlight1Ref, [-3.3, 1, -4.8]); // Position for spotlight 1
     setSpotlightTarget(spotlight2Ref, [0, 1, -5.8]);  // Position for spotlight 2
-    setSpotlightTarget(spotlight3Ref, [2.8, 1, -4.8]);  // Position for spotlight 3
+    setSpotlightTarget(spotlight3Ref, [3.3, 1, -4.8]);  // Position for spotlight 3
     setSpotlightTarget(spotlight4Ref, [0, 0, -1]);
     setSpotlightTarget(spotlight5Ref, [0, 1, -5.8]);
   }, []);
 
+  // const calculatePosition = (el, camera, size) => {
+  //   const objectPosition = new THREE.Vector3();
+  //   el.getWorldPosition(objectPosition);
+  //   objectPosition.project(camera);
+
+  //   const x = (objectPosition.x * 0.5 + 0.5) * size.width;
+  //   const y = (objectPosition.y * -0.5 + 0.5) * size.height;
+  //   return [x, y];
+  // };
+
   return (
     <>
-      <mesh position={[-3, 1, -5]} rotation={[0, Math.PI / 4, 0]}>
+    <Html
+    as='div'
+    // calculatePosition={calculatePosition}
+    position={[0, 1, -3]}
+    style={{
+      color: '#fff',
+      height: '100px',
+      width: '100px',
+      backgroundColor: '#000'
+
+    }}
+    >
+      <h1>Hello world</h1>
+    </Html>
+
+      <mesh position={[-3.5, 1, -5]} rotation={[0, Math.PI / 8, 0]}>
         <BoxTest initialCounter={0} />
       </mesh>
 
@@ -39,7 +72,7 @@ function PlaySpace() {
         <BoxTest initialCounter={0} />
       </mesh>
 
-      <mesh position={[3, 1, -5]} rotation={[0, Math.PI / -4, 0]}>
+      <mesh position={[3.5, 1, -5]} rotation={[0, Math.PI / -8, 0]}>
         <BoxTest initialCounter={0} />
       </mesh>
 
@@ -116,7 +149,6 @@ function PlaySpace() {
       position={[0, 5, -3]}
       distance={100}/>
 
-{/* problem child */}
       <SpotLight
       ref={spotlight5Ref}
       intensity={lightLvl}

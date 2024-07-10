@@ -23,7 +23,7 @@ function Menu() {
 
   useFrame(() => {
     if (fadeBackground && menuOpacity > 0) {
-      setMenuOpacity((prev) => Math.max(prev - 0.02, 0)); // Gradually decrease menu opacity
+      setMenuOpacity((prev) => Math.max(prev - 0.01, 0)); // Gradually decrease menu opacity
       materialRefs.current.forEach((material) => {
         if (material) {
           material.opacity = menuOpacity;
@@ -104,7 +104,7 @@ function Menu() {
             position={[0, 0, 0.01]}
             fontSize={0.14}
             ref={addToTextRefs}
-            materialProps={{ transparent: true, opacity: menuOpacity }}
+            materialProps={{ transparent: true, opacity:{menuOpacity} }}
           >
             HighScores
           </Text>
@@ -134,7 +134,7 @@ function Menu() {
             position={[0, 0, 0.01]}
             fontSize={0.14}
             ref={addToTextRefs}
-            materialProps={{ transparent: true, opacity: menuOpacity }}
+            materialProps={{ transparent: true, opacity:{menuOpacity} }}
           >
             Settings
           </Text>
@@ -166,7 +166,7 @@ function Menu() {
             fontSize={0.14}
             color="#fff"
             ref={addToTextRefs}
-            materialProps={{ transparent: true, opacity: menuOpacity }}
+            materialProps={{ transparent: true, opacity:{menuOpacity} }}
           >
             Start Game
           </Text>

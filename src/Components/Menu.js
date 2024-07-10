@@ -27,11 +27,19 @@ function Menu() {
       materialRefs.current.forEach((material) => {
         if (material) {
           material.opacity = menuOpacity;
+          if (menuOpacity === 0) {
+            // Set y position to 30 when opacity reaches 0
+            material.position.y = 30;
+          }
         }
       });
       textRefs.current.forEach((text) => {
         if (text) {
           text.material.opacity = menuOpacity;
+          if (menuOpacity === 0) {
+            // Set y position to 30 when opacity reaches 0
+            text.position.y = 30;
+          }
         }
       });
     }

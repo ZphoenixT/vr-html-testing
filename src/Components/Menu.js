@@ -42,6 +42,9 @@ function Menu() {
           }
         }
       });
+    } else if (fadeBackground && menuOpacity <= 0) {
+      // Completely faded out, disable interaction
+      setFadeBackground(false); // Reset fadeBackground state
     }
   });
 
@@ -59,131 +62,131 @@ function Menu() {
 
   return (
     <>
-      {!fadeBackground && ( // Render interactive components only if fadeBackground is false
-        <>
-          <Interactive
-            onHover={() => setHovered1(true)}
-            onBlur={() => setHovered1(false)}
+      <Interactive
+        onHover={() => setHovered1(true)}
+        onBlur={() => setHovered1(false)}
+        disabled={fadeBackground} // Disable interaction when fading out
+      >
+        <mesh position={[0, 1, -2.5]}>
+          <RoundedBox
+            args={[1.9, 0.2, 0.1]}
+            radius={0.1}
+            smoothness={16}
+            bevelSegments={0}
+            creaseAngle={2}
           >
-            <mesh position={[0, 1, -2.5]}>
-              <RoundedBox
-                args={[1.9, 0.2, 0.1]}
-                radius={0.1}
-                smoothness={16}
-                bevelSegments={0}
-                creaseAngle={2}
-              >
-                <meshBasicMaterial
-                  ref={addToMaterialRefs}
-                  color={hovered1 ? '#777' : '#666'}
-                  transparent={true}
-                  opacity={menuOpacity}
-                />
-              </RoundedBox>
-              <Text
-                position={[0, 0, 0.01]}
-                fontSize={0.14}
-                ref={addToTextRefs}
-                materialProps={{ transparent: true, opacity: menuOpacity }}
-              >
-                Quit Game
-              </Text>
-            </mesh>
-          </Interactive>
+            <meshBasicMaterial
+              ref={addToMaterialRefs}
+              color={hovered1 ? '#777' : '#666'}
+              transparent={true}
+              opacity={menuOpacity}
+            />
+          </RoundedBox>
+          <Text
+            position={[0, 0, 0.01]}
+            fontSize={0.14}
+            ref={addToTextRefs}
+            materialProps={{ transparent: true, opacity: menuOpacity }}
+          >
+            Quit Game
+          </Text>
+        </mesh>
+      </Interactive>
 
-          <Interactive
-            onHover={() => setHovered2(true)}
-            onBlur={() => setHovered2(false)}
+      <Interactive
+        onHover={() => setHovered2(true)}
+        onBlur={() => setHovered2(false)}
+        disabled={fadeBackground} // Disable interaction when fading out
+      >
+        <mesh position={[-0.45, 1.3, -2.5]}>
+          <RoundedBox
+            args={[1, 0.2, 0.1]}
+            radius={0.1}
+            smoothness={16}
+            bevelSegments={0}
+            creaseAngle={2}
           >
-            <mesh position={[-0.45, 1.3, -2.5]}>
-              <RoundedBox
-                args={[1, 0.2, 0.1]}
-                radius={0.1}
-                smoothness={16}
-                bevelSegments={0}
-                creaseAngle={2}
-              >
-                <meshBasicMaterial
-                  ref={addToMaterialRefs}
-                  color={hovered2 ? '#777' : '#666'}
-                  transparent={true}
-                  opacity={menuOpacity}
-                />
-              </RoundedBox>
-              <Text
-                position={[0, 0, 0.01]}
-                fontSize={0.14}
-                ref={addToTextRefs}
-                materialProps={{ transparent: true, opacity: menuOpacity }}
-              >
-                HighScores
-              </Text>
-            </mesh>
-          </Interactive>
+            <meshBasicMaterial
+              ref={addToMaterialRefs}
+              color={hovered2 ? '#777' : '#666'}
+              transparent={true}
+              opacity={menuOpacity}
+            />
+          </RoundedBox>
+          <Text
+            position={[0, 0, 0.01]}
+            fontSize={0.14}
+            ref={addToTextRefs}
+            materialProps={{ transparent: true, opacity: menuOpacity }}
+          >
+            HighScores
+          </Text>
+        </mesh>
+      </Interactive>
 
-          <Interactive
-            onHover={() => setHovered3(true)}
-            onBlur={() => setHovered3(false)}
+      <Interactive
+        onHover={() => setHovered3(true)}
+        onBlur={() => setHovered3(false)}
+        disabled={fadeBackground} // Disable interaction when fading out
+      >
+        <mesh position={[0.55, 1.3, -2.5]}>
+          <RoundedBox
+            args={[0.8, 0.2, 0.1]}
+            radius={0.1}
+            smoothness={16}
+            bevelSegments={0}
+            creaseAngle={2}
           >
-            <mesh position={[0.55, 1.3, -2.5]}>
-              <RoundedBox
-                args={[0.8, 0.2, 0.1]}
-                radius={0.1}
-                smoothness={16}
-                bevelSegments={0}
-                creaseAngle={2}
-              >
-                <meshBasicMaterial
-                  ref={addToMaterialRefs}
-                  color={hovered3 ? '#777' : '#666'}
-                  transparent={true}
-                  opacity={menuOpacity}
-                />
-              </RoundedBox>
-              <Text
-                position={[0, 0, 0.01]}
-                fontSize={0.14}
-                ref={addToTextRefs}
-                materialProps={{ transparent: true, opacity: menuOpacity }}
-              >
-                Settings
-              </Text>
-            </mesh>
-          </Interactive>
+            <meshBasicMaterial
+              ref={addToMaterialRefs}
+              color={hovered3 ? '#777' : '#666'}
+              transparent={true}
+              opacity={menuOpacity}
+            />
+          </RoundedBox>
+          <Text
+            position={[0, 0, 0.01]}
+            fontSize={0.14}
+            ref={addToTextRefs}
+            materialProps={{ transparent: true, opacity: menuOpacity }}
+          >
+            Settings
+          </Text>
+        </mesh>
+      </Interactive>
 
-          <Interactive
-            onHover={() => setHovered4(true)}
-            onBlur={() => setHovered4(false)}
-            onSelect={handleSelect}
+      <Interactive
+        onHover={() => setHovered4(true)}
+        onBlur={() => setHovered4(false)}
+        onSelect={handleSelect}
+        disabled={fadeBackground} // Disable interaction when fading out
+      >
+        <mesh position={[0, 1.6, -2.5]}>
+          <RoundedBox
+            args={[1.9, 0.2, 0.1]}
+            radius={0.1}
+            smoothness={16}
+            bevelSegments={0}
+            creaseAngle={2}
           >
-            <mesh position={[0, 1.6, -2.5]}>
-              <RoundedBox
-                args={[1.9, 0.2, 0.1]}
-                radius={0.1}
-                smoothness={16}
-                bevelSegments={0}
-                creaseAngle={2}
-              >
-                <meshBasicMaterial
-                  ref={addToMaterialRefs}
-                  color={hovered4 ? '#777' : '#666'}
-                  transparent={true}
-                  opacity={menuOpacity}
-                />
-              </RoundedBox>
-              <Text
-                position={[0, 0, 0.01]}
-                fontSize={0.14}
-                color="#fff"
-                ref={addToTextRefs}
-                materialProps={{ transparent: true, opacity: menuOpacity }}
-              >
-                Start Game
-              </Text>
-            </mesh>
-          </Interactive>
-        </>
-      )}
+            <meshBasicMaterial
+              ref={addToMaterialRefs}
+              color={hovered4 ? '#777' : '#666'}
+              transparent={true}
+              opacity={menuOpacity}
+            />
+          </RoundedBox>
+          <Text
+            position={[0, 0, 0.01]}
+            fontSize={0.14}
+            color="#fff"
+            ref={addToTextRefs}
+            materialProps={{ transparent: true, opacity: menuOpacity }}
+          >
+            Start Game
+          </Text>
+        </mesh>
+      </Interactive>
 
       <Plane args={[1.35, 1.2]} position={[0, 2.4, -2.5]}>
         <meshBasicMaterial

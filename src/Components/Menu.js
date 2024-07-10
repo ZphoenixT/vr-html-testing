@@ -63,7 +63,7 @@ function Menu() {
         onHover={() => setHovered1(true)}
         onBlur={() => setHovered1(false)}
       >
-        <mesh position={[0, 1.2, -2.5]}>
+        <mesh position={[0, 1, -2.5]}>
           <RoundedBox
             args={[1.9, 0.2, 0.1]}
             radius={0.1}
@@ -93,7 +93,7 @@ function Menu() {
         onHover={() => setHovered2(true)}
         onBlur={() => setHovered2(false)}
       >
-        <mesh position={[-0.45, 1.5, -2.5]}>
+        <mesh position={[-0.45, 1.3, -2.5]}>
           <RoundedBox
             args={[1, 0.2, 0.1]}
             radius={0.1}
@@ -123,7 +123,7 @@ function Menu() {
         onHover={() => setHovered3(true)}
         onBlur={() => setHovered3(false)}
       >
-        <mesh position={[0.55, 1.5, -2.5]}>
+        <mesh position={[0.55, 1.3, -2.5]}>
           <RoundedBox
             args={[0.8, 0.2, 0.1]}
             radius={0.1}
@@ -154,7 +154,7 @@ function Menu() {
         onBlur={() => setHovered4(false)}
         onSelect={handleSelect}
       >
-        <mesh position={[0, 1.8, -2.5]}>
+        <mesh position={[0, 1.6, -2.5]}>
           <RoundedBox
             args={[1.9, 0.2, 0.1]}
             radius={0.1}
@@ -181,7 +181,7 @@ function Menu() {
         </mesh>
       </Interactive>
 
-      <Plane args={[1.35, 1.2]} position={[0, 2.6, -2.5]}>
+      <Plane args={[1.35, 1.2]} position={[0, 2.4, -2.5]}>
         <meshBasicMaterial
           map={logo}
           transparent={true}

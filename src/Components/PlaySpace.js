@@ -13,7 +13,7 @@ function PlaySpace() {
 
   return (
     <>
-      {/* <Smoke
+      <Smoke
       count={10}
       color='#ccc'
       fadeDuration={0.01}
@@ -31,17 +31,7 @@ function PlaySpace() {
       speed={0.04}
       posX={-3}
       posY={0.1}
-      posZ={-2} /> */}
-
-      {/* edge of circle */}
-      <mesh position={[0, 0.2, -1.8]}>
-        <torusGeometry args={[0.1, 0.03, 9, 360]}/>
-      </mesh>
-
-      {/* edge of stage */}
-      <mesh position={[0, 0.4, -2.5]}>
-        <torusGeometry args={[0.1, 0.03, 9, 360]}/>
-      </mesh>
+      posZ={-2} />
 
       <OverheadLights/>
       <MainStage/>

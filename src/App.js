@@ -5,9 +5,11 @@ import PlaySpace from './Components/PlaySpace.js';
 function App() {
 
   return (
+    <>
     <XRProvider>
-      <PlaySpace/>
+    <PlaySpace/>
     </XRProvider>
+    </>
   );
 }
 

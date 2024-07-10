@@ -27,7 +27,7 @@ function Menu() {
       materialRefs.current.forEach((material) => {
         if (material && material.position) {
           material.opacity = menuOpacity;
-          if (menuOpacity <= 0) {
+          if (menuOpacity <= 0.3) {
             // Add to y position when opacity reaches 0
             material.position.y += 30; // Add 30 to current y position
           }

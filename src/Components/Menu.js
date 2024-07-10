@@ -25,25 +25,27 @@ function Menu() {
     if (fadeBackground && menuOpacity > 0) {
       setMenuOpacity((prev) => Math.max(prev - 0.01, 0)); // Gradually decrease menu opacity
       materialRefs.current.forEach((material) => {
-        if (material) {
+        if (material && material.position) {
           material.opacity = menuOpacity;
-          if (menuOpacity === 0) {
-            // Set y position to 30 when opacity reaches 0
-            material.position.y = 30;
+          if (menuOpacity <= 0) {
+            // Add to y position when opacity reaches 0
+            material.position.y += 30; // Add 30 to current y position
           }
         }
       });
       textRefs.current.forEach((text) => {
-        if (text) {
+        if (text && text.position) {
           text.material.opacity = menuOpacity;
-          if (menuOpacity === 0) {
-            // Set y position to 30 when opacity reaches 0
-            text.position.y = 30;
+          if (menuOpacity <= 0.2) {
+            // Add to y position when opacity reaches 0
+            text.position.y += 30; // Add 30 to current y position
+            // console.log('moved');
           }
         }
       });
     }
   });
+  
 
   const addToMaterialRefs = (el) => {
     if (el && !materialRefs.current.includes(el)) {

@@ -17,7 +17,6 @@ function Menu() {
   const [menuOpacity, setMenuOpacity] = useState(1); // State for menu items opacity
   const [scoreOpacity, setScoreOpacity] = useState(0);
   const [showScores, setShowScores] = useState(false);
-  // const [backgroundOpacity, setBackgroundOpacity] = useState(1); // State for background opacity
 
   const materialRefs = useRef([]); // Refs to hold material references
   const textRefs = useRef([]); // Refs to hold text references
@@ -31,10 +30,16 @@ function Menu() {
     setFadeMenu(true); // Start fading menu
     };
 
+    const handleBackToMenu = () => {
+      setFadeMenu(false);
+      setFadeBackground(false);
+      setShowScores(false);
+      setMenuOpacity(1);
+      setScoreOpacity(0);
+      console.log('back to the menu');
+    };
+
   useFrame(() => {
-    // if (fadeBackground && backgroundOpacity > 0) {
-    //   setBackgroundOpacity((prev) => Math.max(prev - 0.005, 0)); // Gradually decrease background opacity
-    // }
 
     if (fadeMenu && menuOpacity > 0) {
       setMenuOpacity((prev) => Math.max(prev - 0.01, 0)); // Gradually decrease menu opacity
@@ -47,7 +52,7 @@ function Menu() {
     });
     }
 
-    if ( menuOpacity == 0) {
+    if ( menuOpacity == 0 && scoreOpacity < 1) {
       setScoreOpacity((prev) => Math.min(prev + 0.01, 1)); // Gradually increase scores opacity
       setShowScores(true);
 
@@ -72,7 +77,7 @@ function Menu() {
     }
   };
 
-  useEffect(() => { 
+  useEffect(() => {
     console.log(scoreOpacity);
   }, [scoreOpacity]);
 
@@ -94,7 +99,7 @@ function Menu() {
               >
                 <meshBasicMaterial
                   ref={addToMaterialRefs}
-                  color={hovered1 ? '#777' : '#666'}
+                  color={hovered1 ? '#7c5c5c' : '#666'}
                   transparent={true}
                   opacity={menuOpacity}
                 />
@@ -186,7 +191,7 @@ function Menu() {
               >
                 <meshBasicMaterial
                   ref={addToMaterialRefs}
-                  color={hovered4 ? '#777' : '#666'}
+                  color={hovered4 ? '#68725e' : '#666'}
                   transparent={true}
                   opacity={menuOpacity}
                 />
@@ -213,16 +218,8 @@ function Menu() {
         />
       </Plane>
 
-    <mesh position={[0, 3.5, -2]}>
-      <boxGeometry args={[2, 1, 1]}/>
-      <meshBasicMaterial
-        map={logo}
-        transparent={true}
-        opacity={menuOpacity}/>
-    </mesh>
-
       <MenuBackground fade={fadeBackground} />
-      {showScores && <Scores opacity={scoreOpacity} />}
+      {showScores && <Scores opacity={scoreOpacity} onBackToMenu={handleBackToMenu}/>}
     </>
   );
 }

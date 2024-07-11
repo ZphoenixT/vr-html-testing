@@ -1,10 +1,11 @@
 import { RoundedBox, Text } from '@react-three/drei'
 import { Interactive } from '@react-three/xr'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 
-function Scores({ opacity }) {
+function Scores({ opacity, onBackToMenu }) {
   const scoreFontSize = 0.1;
   const menuX = -2.7;
+  const [hovered5, setHovered5] = useState(false);
 
   return (
     <>
@@ -24,7 +25,11 @@ function Scores({ opacity }) {
     <Text position={[0, 1.3, menuX]} fontSize={scoreFontSize} materialProps={{ transparent: true, opacity: opacity }}>8</Text>
     <Text position={[0, 1.1, menuX]} fontSize={scoreFontSize} materialProps={{ transparent: true, opacity: opacity }}>9</Text>
     <Text position={[0, 0.9, menuX]} fontSize={scoreFontSize} materialProps={{ transparent: true, opacity: opacity }}>10</Text>
-      <Interactive>
+      <Interactive
+      onHover={() => setHovered5(true)}
+      onBlur={() => setHovered5(false)}
+       onSelect={onBackToMenu}
+       >
         <mesh position={[0, 0.6, menuX]}>
           <RoundedBox
           args={[1.2, 0.2, 0.1]}
@@ -34,7 +39,7 @@ function Scores({ opacity }) {
           creaseAngle={2}
           >
             <meshBasicMaterial
-            color="#666"
+            color={hovered5 ? '#777' : '#666'}
             transparent={true}
             opacity={opacity}/>
           </RoundedBox>

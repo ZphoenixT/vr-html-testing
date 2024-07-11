@@ -1,9 +1,10 @@
 import { Plane, RoundedBox, Text } from '@react-three/drei';
 import { Interactive } from '@react-three/xr';
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import * as THREE from 'three';
 import MenuBackground from './MenuBackground';
 import { useFrame } from '@react-three/fiber';
+import Scores from './Scores';
 
 function Menu() {
   const logo = new THREE.TextureLoader().load('/Textures/Designer.jpeg');
@@ -12,35 +13,49 @@ function Menu() {
   const [hovered3, setHovered3] = useState(false);
   const [hovered4, setHovered4] = useState(false);
   const [fadeBackground, setFadeBackground] = useState(false);
+  const [fadeMenu, setFadeMenu] = useState(false); // Separate state for menu fade
   const [menuOpacity, setMenuOpacity] = useState(1); // State for menu items opacity
+  const [scoreOpacity, setScoreOpacity] = useState(0);
+  const [showScores, setShowScores] = useState(false);
+  // const [backgroundOpacity, setBackgroundOpacity] = useState(1); // State for background opacity
 
   const materialRefs = useRef([]); // Refs to hold material references
   const textRefs = useRef([]); // Refs to hold text references
 
-  const handleSelect = () => {
+  const handleSelectStart = () => {
+    setFadeMenu(true); // Start fading menu
     setFadeBackground(true); // Start fading background
   };
 
+  const handleSelectScores = () => {
+    setFadeMenu(true); // Start fading menu
+    };
+
   useFrame(() => {
-    if (fadeBackground && menuOpacity > 0) {
+    // if (fadeBackground && backgroundOpacity > 0) {
+    //   setBackgroundOpacity((prev) => Math.max(prev - 0.005, 0)); // Gradually decrease background opacity
+    // }
+
+    if (fadeMenu && menuOpacity > 0) {
       setMenuOpacity((prev) => Math.max(prev - 0.01, 0)); // Gradually decrease menu opacity
+
       materialRefs.current.forEach((material) => {
-        if (material && material.position) {
-          material.opacity = menuOpacity;
-          if (menuOpacity <= 0.3) {
-            // Add to y position when opacity reaches 0
-            material.position.y += 30; // Add 30 to current y position
-          }
-        }
+      if (material) material.opacity = menuOpacity;
+    });
+    textRefs.current.forEach((text) => {
+      if (text) text.material.opacity = menuOpacity;
+    });
+    }
+
+    if ( menuOpacity == 0) {
+      setScoreOpacity((prev) => Math.min(prev + 0.01, 1)); // Gradually increase scores opacity
+      setShowScores(true);
+
+      materialRefs.current.forEach((material) => {
+        if (material) material.opacity = scoreOpacity;
       });
       textRefs.current.forEach((text) => {
-        if (text && text.position) {
-          text.material.opacity = menuOpacity;
-          if (menuOpacity <= 0.2) {
-            // Add to y position when opacity reaches 0
-            text.position.y += 30; // Add 30 to current y position
-          }
-        }
+        if (text) text.material.opacity = scoreOpacity;
       });
     }
   });
@@ -57,15 +72,19 @@ function Menu() {
     }
   };
 
+  useEffect(() => { 
+    console.log(scoreOpacity);
+  }, [scoreOpacity]);
+
   return (
     <>
-      {!fadeBackground && ( // Render interactive components only if fadeBackground is false
+      {menuOpacity > 0 && ( // Render interactive components only if fadeBackground is false
         <>
           <Interactive
             onHover={() => setHovered1(true)}
             onBlur={() => setHovered1(false)}
           >
-            <mesh position={[0, 1, -2.5]}>
+            <mesh position={[0, 1, -2.7]}>
               <RoundedBox
                 args={[1.9, 0.2, 0.1]}
                 radius={0.1}
@@ -94,8 +113,9 @@ function Menu() {
           <Interactive
             onHover={() => setHovered2(true)}
             onBlur={() => setHovered2(false)}
+            onSelect={handleSelectScores}
           >
-            <mesh position={[-0.45, 1.3, -2.5]}>
+            <mesh position={[-0.45, 1.3, -2.7]}>
               <RoundedBox
                 args={[1, 0.2, 0.1]}
                 radius={0.1}
@@ -125,7 +145,7 @@ function Menu() {
             onHover={() => setHovered3(true)}
             onBlur={() => setHovered3(false)}
           >
-            <mesh position={[0.55, 1.3, -2.5]}>
+            <mesh position={[0.55, 1.3, -2.7]}>
               <RoundedBox
                 args={[0.8, 0.2, 0.1]}
                 radius={0.1}
@@ -154,9 +174,9 @@ function Menu() {
           <Interactive
             onHover={() => setHovered4(true)}
             onBlur={() => setHovered4(false)}
-            onSelect={handleSelect}
+            onSelect={handleSelectStart}
           >
-            <mesh position={[0, 1.6, -2.5]}>
+            <mesh position={[0, 1.6, -2.7]}>
               <RoundedBox
                 args={[1.9, 0.2, 0.1]}
                 radius={0.1}
@@ -185,16 +205,24 @@ function Menu() {
         </>
       )}
 
-      <Plane args={[1.35, 1.2]} position={[0, 2.4, -2.5]}>
+      <Plane args={[1.35, 1.2]} position={[0, 2.4, -2.7]}>
         <meshBasicMaterial
           map={logo}
           transparent={true}
           opacity={menuOpacity}
-          ref={addToMaterialRefs}
         />
       </Plane>
 
+    <mesh position={[0, 3.5, -2]}>
+      <boxGeometry args={[2, 1, 1]}/>
+      <meshBasicMaterial
+        map={logo}
+        transparent={true}
+        opacity={menuOpacity}/>
+    </mesh>
+
       <MenuBackground fade={fadeBackground} />
+      {showScores && <Scores opacity={scoreOpacity} />}
     </>
   );
 }

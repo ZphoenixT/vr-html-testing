@@ -7,6 +7,7 @@ import OverheadLights from './OverheadLights';
 import Targets from './Targets';
 import Menu from './Menu';
 import MenuBackground from './MenuBackground';
+import Scores from './Scores';
 
 function PlaySpace() {
   const { controllers } = useXR();
@@ -35,8 +36,13 @@ function PlaySpace() {
 
       <OverheadLights/>
       <MainStage/>
-      <Targets/>
+      {/* <Targets/> */}
       <Menu/>
+      {/* <Scores/> */}
+
+      <boxGeometry args={[1, 1, 1]}>
+      <meshBasicMaterial/>
+    </boxGeometry>
 
       <OrbitControls />
       <Controllers rayMaterial={{ color: 'green' }} />

@@ -17,6 +17,7 @@ function Menu() {
   const [menuOpacity, setMenuOpacity] = useState(1); // State for menu items opacity
   const [scoreOpacity, setScoreOpacity] = useState(0);
   const [showScores, setShowScores] = useState(false);
+  const [calledScores, setCalledScores] = useState(false);
 
   const materialRefs = useRef([]); // Refs to hold material references
   const textRefs = useRef([]); // Refs to hold text references
@@ -27,6 +28,7 @@ function Menu() {
   };
 
   const handleSelectScores = () => {
+    setCalledScores(true);
     setFadeMenu(true); // Start fading menu
     };
 
@@ -52,7 +54,7 @@ function Menu() {
     });
     }
 
-    if ( menuOpacity == 0 && scoreOpacity < 1) {
+    if ( menuOpacity == 0 && scoreOpacity < 1 && calledScores) {
       setScoreOpacity((prev) => Math.min(prev + 0.01, 1)); // Gradually increase scores opacity
       setShowScores(true);
 

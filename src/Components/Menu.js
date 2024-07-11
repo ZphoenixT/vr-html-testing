@@ -36,6 +36,7 @@ function Menu() {
       setFadeMenu(false);
       setFadeBackground(false);
       setShowScores(false);
+      setCalledScores(false);
       setMenuOpacity(1);
       setScoreOpacity(0);
       console.log('back to the menu');

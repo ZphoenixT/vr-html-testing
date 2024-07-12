@@ -3,28 +3,34 @@ import { useFrame } from '@react-three/fiber';
 import { Interactive } from '@react-three/xr';
 import { Text } from '@react-three/drei';
 
-function BoxTest({ initialCounter }) {
+function BoxTest({ updateTotalAdditions }) {
   const meshRef = useRef();
   const [isHovered, setIsHovered] = useState(false);
-  const [counter, setCounter] = useState(initialCounter);
+  const [counter, setCounter] = useState(6.4);
 
   const handleHoverStart = () => {
     setIsHovered(true);
-    console.log("hovering ");
+    // console.log("hovering ");
   };
 
   const handleHoverEnd = () => {
     setIsHovered(false);
-    console.log("hover'nting");
+    // console.log("hover'nting");
   };
 
   // Counter logic
   useEffect(() => {
     const interval = setInterval(() => {
       setCounter((prevCounter) => {
-        return isHovered ? prevCounter + 1 : prevCounter > 0 ? prevCounter - 1 : 0;
+        if (isHovered && prevCounter <= 6.3) {
+          const newCounter = prevCounter + 0.1 > 6.3 ? 6.3 : prevCounter + 0.1;
+          updateTotalAdditions();
+          return newCounter;
+        } else {
+          return prevCounter > 0 ? prevCounter - 0.05 : 0;
+        }
       });
-    }, 1000);
+    }, 100);
 
     return () => clearInterval(interval);
   }, [isHovered]);
@@ -36,19 +42,24 @@ function BoxTest({ initialCounter }) {
   });
 
   return (
+    <>
     <Interactive
       onHover={handleHoverStart}
       onBlur={handleHoverEnd}
     >
       <mesh ref={meshRef}>
         <circleGeometry args={[0.3, 64]} />
-        <meshBasicMaterial side="DoubleSide" color="blue" />
+        <meshBasicMaterial />
+      </mesh>
+      <mesh position={[0, 0, 0.01]}>
+        <ringGeometry args={[0.2, 0.3, 64, 1, 0, counter]}/>
       </mesh>
       {/* Display counter text above the circle */}
-      <Text position={[0, 0, 0.0001]} fontSize={0.3} color="green">
-        {counter}
-      </Text>
     </Interactive>
+    <Text position={[0, 0.6, 0.0001]} fontSize={0.3} color="green">
+    {counter}
+  </Text>
+    </>
   );
 }
 

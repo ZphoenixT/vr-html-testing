@@ -36,7 +36,7 @@ function PlaySpace() {
 
       <OverheadLights/>
       <MainStage/>
-      <Targets/>
+      {/* <Targets/> */}
       {/* <Menu/> */}
 
       <boxGeometry args={[1, 1, 1]}>

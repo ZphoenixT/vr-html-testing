@@ -6,6 +6,18 @@ function Scores({ opacity, onBackToMenu }) {
   const scoreFontSize = 0.1;
   const menuX = -2.7;
   const [hovered5, setHovered5] = useState(false);
+  const [scores, setScores] = useState([]);
+
+  useEffect(() => {
+    fetch('/highScores.txt')
+      .then(response => response.text())
+      .then(text => {
+        const lines = text.split('\n').filter(line => line.trim() !== '');
+        const formattedScores = lines.map(line => line.split('|').join(' '));
+        setScores(formattedScores);
+      })
+      .catch(err => console.error('Failed to fetch scores:', err));
+  }, []);
 
   return (
     <>
@@ -15,16 +27,16 @@ function Scores({ opacity, onBackToMenu }) {
     materialProps={{ transparent: true, opacity }}>
       HighScores
     </Text>
-    <Text position={[0, 2.7, menuX]} fontSize={scoreFontSize} materialProps={{ transparent: true, opacity: opacity }}>1 ASS 1,004,343</Text>
-    <Text position={[0, 2.5, menuX]} fontSize={scoreFontSize} materialProps={{ transparent: true, opacity: opacity }}>2</Text>
-    <Text position={[0, 2.3, menuX]} fontSize={scoreFontSize} materialProps={{ transparent: true, opacity: opacity }}>3</Text>
-    <Text position={[0, 2.1, menuX]} fontSize={scoreFontSize} materialProps={{ transparent: true, opacity: opacity }}>4</Text>
-    <Text position={[0, 1.9, menuX]} fontSize={scoreFontSize} materialProps={{ transparent: true, opacity: opacity }}>5</Text>
-    <Text position={[0, 1.7, menuX]} fontSize={scoreFontSize} materialProps={{ transparent: true, opacity: opacity }}>6</Text>
-    <Text position={[0, 1.5, menuX]} fontSize={scoreFontSize} materialProps={{ transparent: true, opacity: opacity }}>7</Text>
-    <Text position={[0, 1.3, menuX]} fontSize={scoreFontSize} materialProps={{ transparent: true, opacity: opacity }}>8</Text>
-    <Text position={[0, 1.1, menuX]} fontSize={scoreFontSize} materialProps={{ transparent: true, opacity: opacity }}>9</Text>
-    <Text position={[0, 0.9, menuX]} fontSize={scoreFontSize} materialProps={{ transparent: true, opacity: opacity }}>10</Text>
+
+    {scores.map((score, index) => (
+      <Text
+        position={[0, 2.7 - 0.2 * index, menuX]}
+        fontSize={scoreFontSize}
+        materialProps={{ transparent: true, opacity: opacity }}>
+        {score}
+      </Text>
+    ))}
+
       <Interactive
       onHover={() => setHovered5(true)}
       onBlur={() => setHovered5(false)}
